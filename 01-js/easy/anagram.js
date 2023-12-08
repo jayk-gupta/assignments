@@ -5,7 +5,14 @@
 */
 
 function isAnagram(str1, str2) {
+  if (str1.length !== str2.length) return false;
+  const s1 = str1.toLowerCase();
+  const s2 = str2.toLowerCase();
 
+  for (let i = 0; i < s1.length; i++) {
+    if (!s1.includes(s2[i])) return false;
+  }
+  return true;
 }
-
+console.log(isAnagram("aiopen", "openai"));
 module.exports = isAnagram;
