@@ -4,7 +4,11 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  const originalStr = str.toLowerCase().replace(/[\s,.!?|'";]/g,'');
+  const revStr = originalStr.split("").reverse().join('')
+  return originalStr === revStr
 }
 
+const ans = isPalindrome("A man a plan a cana.l Panama!");
+console.log(ans);
 module.exports = isPalindrome;
