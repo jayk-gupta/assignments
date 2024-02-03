@@ -39,11 +39,49 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
+const { v4: uuidv4 } = require("uuid");
+
+const app = express();
+app.use(bodyParser.json());
+///////////////////////////
+const todos = [
+  {id: 1,
+    title:"Buy groceries",
+    completed:false,
+    description: "I will go to buy groceries"
+  },{
+    id:2,
+    title:"revise middleware",
+    completed:false,
+    description: "revise middleware in express js"
+  }
+]
+//////////////////////////////////
+app.get("/todos", (req, res) => {
+  res.json(todos)
+});
+
+app.get("/todos/:id", (req, res) => {
+  const id = req.params.id;
+  const todo = todos.find((todo) => todo.id === 1)
+  res.json(todo)
+});
+
+app.post("/todos", (req, res) => {
+ const newTodo =  req.body
+ newTodo.id = uuidv4();
+ todos.push(newTodo)
+ res.status(201).send(`todo created with id ${newTodo.id}`)
   
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+});
+app.put("/todos/:id", (req, res) => {
+
+});
+app.delete("/todos", (req, res) => {});
+
+module.exports = app;
+app.listen(3000 , () =>{
+  console.log("app is runing in port 3000");
+})
